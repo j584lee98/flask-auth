@@ -1,19 +1,11 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-  return """<div>
-              <form action="/">
-                <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname"><br><br>
-                <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="lname"><br><br>
-                <input type="submit" value="Submit">
-              </form>
-            </div>"""
+  return render_template('login.html')
 
 @auth.route('/signup')
 def signup():
-  return "<p>Sign Up Page</p>"
+  return render_template('signup.html')
