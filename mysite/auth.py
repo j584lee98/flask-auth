@@ -2,8 +2,8 @@ from flask import Blueprint
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/')
-def home():
+@auth.route('/login')
+def login():
   return """<div>
               <form action="/">
                 <label for="fname">First name:</label>
@@ -13,3 +13,7 @@ def home():
                 <input type="submit" value="Submit">
               </form>
             </div>"""
+
+@auth.route('/signup')
+def signup():
+  return "<p>Sign Up Page</p>"
