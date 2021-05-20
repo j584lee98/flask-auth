@@ -24,4 +24,9 @@ def create_app():
   app.register_blueprint(views, url_prefix='/')
   app.register_blueprint(auth, url_prefix='/auth')
 
+  from .models import User, Todo
+
+  with app.app_context():
+    db.create_all()
+
   return app

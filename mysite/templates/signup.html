@@ -1,14 +1,21 @@
 {% extends "base.html" %} {% block container %}
 <form method="POST">
+  <h4 class="mb-3">Sign Up</h4>
   <div class="mb-3">
-    <h4 class="mb-3">Sign Up</h4>
-    <label for="email" class="form-label">Email address</label>
+    <label for="first_name" class="form-label">First Name</label>
+    <input type="text" class="form-control" id="first_name" name="first_name" />
+  </div>
+  <div class="mb-3">
+    <label for="last_name" class="form-label">Last Name</label>
+    <input type="text" class="form-control" id="last_name" name="last_name" />
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email Address</label>
     <input
       type="email"
       class="form-control"
       id="email"
       name="email"
-      placeholder="Enter email"
       aria-describedby="emailHelp"
     />
   </div>
@@ -19,7 +26,6 @@
       class="form-control"
       id="password1"
       name="password1"
-      placeholder="Enter password"
     />
   </div>
   <div class="mb-3">
@@ -29,7 +35,6 @@
       class="form-control"
       id="password2"
       name="password2"
-      placeholder="Confirm password"
     />
   </div>
   <button type="submit" class="btn btn-primary">Sign Up</button>

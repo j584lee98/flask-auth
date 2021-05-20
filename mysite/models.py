@@ -14,4 +14,4 @@ class Todo(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   todo = db.Column(db.String(500), nullable=False)
   date = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
