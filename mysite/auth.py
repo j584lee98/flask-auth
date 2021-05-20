@@ -12,10 +12,15 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if password != 'password':
-      flash('Incorrect password.', category='error')
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+      if check_password_hash(user.password, password):
+        flash('Logged in successfully.', category='success')
+      else:
+        flash('Incorrect email or password.', category='error')
     else:
-      flash('Login success!', category='success')
+      flash('Incorrect email or password.', category='error')
   
   return render_template('login.html')
 
@@ -28,7 +33,11 @@ def signup():
     password1 = request.form.get('password1')
     password2 = request.form.get('password2')
 
-    if len(first_name) == 0:
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+      flash('An account with this email already exists.', category='error')
+    elif len(first_name) == 0:
       flash('Please enter your first name.', category='error')
     elif len(last_name) == 0:
       flash('Please enter your last name.', category='error')
