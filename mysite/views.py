@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
+from datetime import datetime, timezone
 import json
 
 from . import db
@@ -11,12 +12,12 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
   if request.method == 'POST':
-    todo = request.form.get('todo')
-    new_todo = Todo(todo=todo, user_id=current_user.id)
+    title = request.form.get('title')
+    desc = request.form.get('desc')
+    new_todo = Todo(todo=title, desc=desc, user_id=current_user.id)
     db.session.add(new_todo)
     db.session.commit()
     flash('Todo created successfully!', category='success')
-
   return render_template("home.html")
 
 @views.route('/delete', methods=['POST'])

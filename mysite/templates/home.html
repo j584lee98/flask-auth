@@ -1,17 +1,24 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}{% block container
 %}
-<form method="POST">
+<form method="POST" class="mb-5">
   <h4 class="mb-3">New Todo</h4>
   <div class="mb-3">
-    <input type="text" class="form-control" id="todo" name="todo" />
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" />
   </div>
+  <div class="mb-3">
+    <label for="desc" class="form-label">Description</label>
+    <input type="text" class="form-control" id="desc" name="desc" />
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
 </form>
 <div class="list-group">
+  {% if current_user.todos %}
+  <h4 class="mb-3">My Todos</h4>
   {% for todo in current_user.todos %}
-  <a href="#" class="list-group-item list-group-item-action">
+  <a class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ todo.todo }}</h5>
-      <small>{{ todo.date }}</small>
       <button
         type="button"
         class="close"
@@ -21,8 +28,9 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
+    <p class="mb-1">{{ todo.desc }}</p>
+    <small>{{ todo.date }}</small>
   </a>
-  {% endfor %}
+  {% endfor %} {% endif %}
 </div>
 {% endblock %}
