@@ -12,6 +12,14 @@
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ todo.todo }}</h5>
       <small>{{ todo.date }}</small>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        onclick="deleteTodo('{{todo.id}}')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <p class="mb-1">Some placeholder content in a paragraph.</p>
   </a>

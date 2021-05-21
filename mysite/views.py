@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
+import json
 
 from . import db
 from .models import Todo
@@ -17,3 +18,15 @@ def home():
     flash('Todo created successfully!', category='success')
 
   return render_template("home.html")
+
+@views.route('/delete', methods=['POST'])
+def delete():
+  todo_object = json.loads(request.data)
+  todoId = todo_object['todoId']
+  todo = Todo.query.get(todoId)
+  if todo:
+    if todo.user_id == current_user.id:
+      db.session.delete(todo)
+      db.session.commit()
+  
+  return jsonify({})
