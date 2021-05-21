@@ -6,6 +6,8 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 from flask_login import LoginManager
 
+load_dotenv(find_dotenv())
+
 db = SQLAlchemy()
 
 def create_app():
