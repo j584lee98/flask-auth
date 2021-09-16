@@ -1,9 +1,18 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
+import re
 
 from .models import User
 from . import db
+
+def password_complexity_error(password):
+  length_error = len(password) < 8
+  number_error = re.search(r"\d", password) is None
+  uppercase_error = re.search(r"[A-Z]", password) is None
+  lowercase_error = re.search(r"[a-z]", password) is None
+  symbol_error = re.search(r"[`!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?~]", password) is None
+  return length_error or number_error or uppercase_error or lowercase_error or symbol_error
 
 auth = Blueprint('auth', __name__)
 
@@ -50,10 +59,10 @@ def signup():
       flash('Please enter your first name.', category='error')
     elif len(last_name) == 0:
       flash('Please enter your last name.', category='error')
-    elif len(password1) < 8:
-      flash('Password length must be at least 8 characters.', category='error')
     elif password1 != password2:
       flash('Passwords do not match.', category='error')
+    elif password_complexity_error(password1):
+      flash('Password length must be at least 8 characters and contain at least one number, lowercase character, uppercase character, and symbol.', category='error')
     else:
       new_user = User(first_name=first_name, last_name=last_name, email=email, password=generate_password_hash(password1, method='sha256'))
       db.session.add(new_user)
