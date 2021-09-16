@@ -40,6 +40,7 @@ pip install flask-login
 pip install flask-migrate
 pip install flask-sqlalchemy
 pip install psycopg2-binary
+pip install python-dotenv
 ```
 
 ### Environment Variables
